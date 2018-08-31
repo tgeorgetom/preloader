@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pre Loader</title>
+</head>
+<body>
+
+<style type="text/css">
+#overlay{
+    background: #fff none repeat scroll 0 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 55;
+    transition: all 0.5s ease 0s;
+}
+/*.hideOverlay{
+	opacity: 0;
+	visibility: hidden;
+}*/
+.progress-wrapper {
+    max-width: 300px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.progress-wrapper:after {
+	content: "";
+    height: 800px;
+    width: 800px;
+    border-radius: 50%;
+    background-color: #66BB6A;
+    position: absolute;
+    margin: -400px -250px 0;
+    transform: scale(0);
+    transform-origin: 50% 40%;
+    z-index: -1;
+    transition: all 0.3s cubic-bezier(0,0,.2,1) 0s;
+    animation: a-h 0.5s 1.25s 1 linear forwards,a-nt .6s 1.25s 1 cubic-bezier(0,0,.2,1);
+}
+
+@keyframes a-h {
+	100% {
+		opacity:0
+	}
+}
+@keyframes a-nt {
+	100% {
+		transform:none
+	}
+}
+
+.progress-wrapper .progress-logo {
+  width: 100%;
+  max-width: 150px;
+  margin: 0 auto 10px;
+  display: block;
+  -webkit-animation-name: logo-scale;
+  -webkit-animation-duration: 1s;
+  animation-name: logo-scale;
+  animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+@-webkit-keyframes logo-scale {
+    from {
+		opacity: 0.1;
+		transform: scale(0.8)  translateY(-50%);
+    }
+    to {
+    	opacity: 1;
+    	transform: scale(1)  translateY(-50%);
+    }
+}
+@keyframes logo-scale {
+    from {
+		opacity: 0.1;
+		transform: scale(0.8)  translateY(-50%);
+    }
+    to {
+    	opacity: 1;
+    	transform: scale(1)  translateY(-50%);
+    }
+}
+
+
+
+#progress {
+    background: #66BB6A;
+    position: absolute;
+    left: 0;
+    right:  0;
+    height: 3px;
+    bottom: 0px;
+    transition: all 0.5s ease 0s;
+}
+#progress:after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: #f1f1f1;
+    content: "";
+    width: 300px;
+    height: 3px;
+    /* width: 100%; */
+    z-index: -1;
+}
+</style>
+
+<div id="overlay" class="hover_ease_5">
+	<div class="progress-wrapper">
+		<img class="progress-logo" src="logo.png">
+	    <div id="progress"></div>
+	    <div style="opacity: 0;" id="progstat"></div>
+    </div>
+    <span class="circle"></span>
+</div>
+
+
+<script type="text/javascript">
+(function() {
+  function id(v) {
+    return document.getElementById(v);
+  }
+
+  function loadbar() {
+    var ovrl = id("overlay"),
+      prog = id("progress"),
+      stat = id("progstat"),
+      img = document.images,
+      c = 0;
+    tot = img.length;
+
+
+
+    function imgLoaded() {
+      c += 1;
+      var perc = (((100 / tot) * c) << 0) + "%";
+      prog.style.width = perc;
+      stat.innerHTML = "Loading " + perc;
+      if (c === tot) return doneLoading();
+    }
+
+    function doneLoading() {
+      // ovrl.style.opacity = 0;
+      setTimeout(function() {
+        ovrl.classList.add("hideOverlay");
+      }, 3200);
+    }
+    for (var i = 0; i < tot; i++) {
+      var tImg = new Image();
+      tImg.onload = imgLoaded;
+      tImg.onerror = imgLoaded;
+      tImg.src = img[i].src;
+    }
+  }
+  document.addEventListener("DOMContentLoaded", loadbar, false);
+  
+})();	
+</script>
+
+<img src="https://newevolutiondesigns.com/images/freebies/4k-wallpaper-5.jpg" />
+<img src="https://www.pxwall.com/wp-content/uploads/2018/03/Red-Clouds-Nature-4K-Wallpapers-UHD.jpg" />
+<img src="https://www.planwallpaper.com/static/images/8ccb4ec4225b290726ae9be975220ff4.jpg" />
+<img src="https://www.planwallpaper.com/static/images/4442617-hd-wallpapers.jpg" />
+	
+
+</body>
+</html>
